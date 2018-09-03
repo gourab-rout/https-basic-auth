@@ -21,12 +21,14 @@ keytool -genkeypair -keystore keystore.jks   -dname "CN=localhost, OU=Unknown, O
 
    1. Keep the jks file under src/main/resources
    2. Configure an HTTPS connector inside your Mule configuration:
+      
       ![ScreenShot](https://raw.githubusercontent.com/indiramallick1988/Demo2/master/HTTPS/HTTPS1.png)
 
 
 ## Configuring Username and Password
    
    1. Configure Spring Authentication Manager for basic authorization username and password inside your Mule configuration:
+      
       ![ScreenShot](https://raw.githubusercontent.com/indiramallick1988/Demo2/master/HTTPS/Auth.PNG)
       
 ## Testing the application
