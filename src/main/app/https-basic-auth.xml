@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:context="http://www.springframework.org/schema/context" xmlns:mule-ss="http://www.mulesoft.org/schema/mule/spring-security"
+    xmlns:ss="http://www.springframework.org/schema/security"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/spring-security http://www.mulesoft.org/schema/mule/spring-security/current/mule-spring-security.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd">
+    
+    <spring:beans>
+        <ss:authentication-manager alias="authenticationManager">
+            <ss:authentication-provider>
+                <ss:user-service id="userService">
+                    <ss:user name="${https.basicAuth.username}" password="${https.basicAuth.password}" authorities="ROLE_ADMIN" />
+                </ss:user-service>
+            </ss:authentication-provider>
+        </ss:authentication-manager>
+    </spring:beans>
+    
+    <mule-ss:security-manager name="API_security_manager" doc:name="Spring Security Provider">
+        <mule-ss:delegate-security-provider name="memory-provider" delegate-ref="authenticationManager" />
+    </mule-ss:security-manager>   
+    
+        
+    <http:listener-config name="HTTP_Listener_Configuration" protocol="HTTPS" host="${https.host}" port="${https.port}" doc:name="HTTP Listener Configuration">
+        <tls:context>
+            <tls:key-store path="${keystore.path}" keyPassword="${keystore.keypassword}" password="${keystore.password}"/>
+        </tls:context>
+    </http:listener-config>
+    
+    <context:property-placeholder location="${env}.properties"/>
+    
+    <flow name="https-basic-authFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/" doc:name="HTTP"/>
+        <http:basic-security-filter realm="API_security_manager" doc:name="Basic Auth" />
+        <logger message="passed" level="INFO" doc:name="Logger"/>
+        <set-payload value="&quot;API is HTTPS Basic Auth protected&quot;" doc:name="Set Payload"/>        
+    </flow>
+</mule>
