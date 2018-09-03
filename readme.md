@@ -9,8 +9,8 @@ To build a https service in mule we need the following steps.
    
 ## Generating Certificate
 
-Generate a keystore if you don’t have one already.
-This command creates a file named keystore.jks. Before proceeding, verify that this file exists and appears in the folder src/main/resources.
+   Generate a keystore if you don’t have one already.
+   The below command creates a file named keystore.jks. Before proceeding, verify that this file exists and appears in the folder    src/main/resources.
 
 ```
 keytool -genkeypair -keystore keystore.jks   -dname "CN=localhost, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown"  
@@ -21,7 +21,7 @@ keytool -genkeypair -keystore keystore.jks   -dname "CN=localhost, OU=Unknown, O
 
    1. Keep the jks file under src/main/resources
    2. Configure an HTTPS connector inside your Mule configuration:
-      ![ScreenShot](https://raw.githubusercontent.com/indiramallick1988/Demo2/master/HTTPS/HTTPS.PNG)
+      ![ScreenShot](https://raw.githubusercontent.com/indiramallick1988/Demo2/master/HTTPS/HTTPS.png)
 
 
 ## Configuring Username and Password
