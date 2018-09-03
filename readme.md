@@ -1,6 +1,6 @@
 # HTTPS Service with Basic Authorization
 
-To build a https service in mule
+To build a https service in mule we need the following steps.
 
 ## Requirement
    1. Generating a self signed certificate
@@ -9,7 +9,7 @@ To build a https service in mule
    
 ## Generating Certificate
 
-Generate a keystore if you don’t have one already.
+Generate a keystore if you donâ€™t have one already.
 This command creates a file named keystore.jks. Before proceeding, verify that this file exists and appears in the folder src/main/resources.
 
 ```
@@ -33,7 +33,7 @@ keytool -genkeypair -keystore keystore.jks   -dname "CN=localhost, OU=Unknown, O
    This application is deployed in Anypoint Cloud environment. 
    To Test the application click the below. It will ask the username and password which is as below.
    
-   URL:
-   USERNAME:
-   PASSWORD:
+   URL: https://hello-https.us-e2.cloudhub.io/test
+   USERNAME: test
+   PASSWORD: test123
    
